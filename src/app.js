@@ -1,5 +1,6 @@
 import express from 'express';
 import routers from './routers';
+import './database';
 
 class App {
 

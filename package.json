@@ -6,7 +6,9 @@
   "author": "Lionan Dantas <lionan.ferreira@globalsys.com.br>",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "1.5.2",
     "sequelize": "^5.18.0"
   },
