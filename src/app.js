@@ -1,5 +1,6 @@
 import express from 'express';
 import routers from './routers';
+import path from 'path'
 import './database';
 
 class App {
@@ -12,6 +13,7 @@ class App {
     }
 
     middlewares() {
+        this.server.use('/files', express.static(path.resolve(__dirname, '..', 'temp', 'uploads')));
         this.server.use(express.json());
     }
 

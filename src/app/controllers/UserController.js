@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 class UserController {
     async store(req, res) {
 
+        console.log(Yup);
         const schema = Yup.object().shape({
             name: Yup.string().required(),
             email: Yup.string().email().required(),
