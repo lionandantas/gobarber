@@ -23,6 +23,7 @@ routers.put('/users', UserController.update);
 routers.post('/files', upload.single('file'), FileController.store);
 routers.get('/providers', ProviderController.index);
 routers.post('/appointments', AppointmentController.store);
+routers.get('/appointments', AppointmentController.index);
 
 
 export default routers;
