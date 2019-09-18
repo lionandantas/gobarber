@@ -6,6 +6,10 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import ProviderController from './app/controllers/ProviderController';
 import AppointmentController from './app/controllers/AppointmentController';
+import ScheduleController from './app/controllers/ScheduleController';
+
+
+
 
 
 
@@ -24,6 +28,7 @@ routers.post('/files', upload.single('file'), FileController.store);
 routers.get('/providers', ProviderController.index);
 routers.post('/appointments', AppointmentController.store);
 routers.get('/appointments', AppointmentController.index);
+routers.get('/schedule', ScheduleController.index);
 
 
 export default routers;
