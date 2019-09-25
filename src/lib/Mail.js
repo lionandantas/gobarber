@@ -32,11 +32,14 @@ class Mail {
 
         }));
     }
-    sendMail(message) {
-        this.transport.sendMail({
+    async sendMail(message) {
+        console.log(" EMAIL"+ JSON.stringify(message));
+       const result = await this.transport.sendMail({
             ...mailConfig.default,
             ...message
         });
+
+        console.log("ERRO EMAIL"+ JSON.stringify(result));
     }
 }
 

@@ -5,7 +5,8 @@ import File from '../models/File';
 import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import * as Yup from 'yup';
-import Mail from '../../lib/mail';
+import Queue from '../../lib/Queue';
+import CancelletionMail from '../../app/jobs/CancelletionMail'
 
 
 class AppointmentController {
@@ -137,7 +138,7 @@ class AppointmentController {
         console.log(JSON.stringify(appointment));
 
 
-        await Mail.sendMail({
+        /*await Mail.sendMail({
             to: `${appointment.provider.name} <${appointment.provider.email}>`,
             subject: 'Agendamento cancelado',
             template: 'cancellation',
@@ -146,8 +147,10 @@ class AppointmentController {
                 user: appointment.user.name,
                 date:format(appointment.data, "'dia' dd 'de' MMMM', às' H:mm,'h' ", { locale: pt })
             }
+        });*/
+        await Queue.add(CancelletionMail.key, {
+            appointment
         });
-
         return res.status(200).json(appointment);
     }
 
