@@ -8,8 +8,7 @@ import ProviderController from './app/controllers/ProviderController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationController from './app/controllers/NotificationController';
-
-
+import AvailableController from './app/controllers/AvailableController';
 
 
 
@@ -25,12 +24,23 @@ routers.post('/sessions', SessionController.store);
 routers.use(authMiddleware);
 
 routers.put('/users', UserController.update);
+
 routers.post('/files', upload.single('file'), FileController.store);
+
+
 routers.get('/providers', ProviderController.index);
+routers.get('/providers/:providerId/available', AvailableController.index);
+
+
+
 routers.post('/appointments', AppointmentController.store);
 routers.get('/appointments', AppointmentController.index);
 routers.delete('/appointments/:id', AppointmentController.delete);
+
+
 routers.get('/schedule', ScheduleController.index);
+
+
 routers.get('/notifications', NotificationController.index);
 routers.put('/notifications/:id', NotificationController.update);
 

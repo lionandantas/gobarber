@@ -20,7 +20,7 @@ class CancelletionMail {
             context: {
                 provider: appointment.provider.name,
                 user: appointment.user.name,
-                date: appointment.data//format(appointment.data, "'dia' dd 'de' MMMM', às' H:mm,'h' ", { locale: pt })
+                date: appointment.data//format(parseISO(appointment.data), "'dia' dd 'de' MMMM', às' H:mm,'h' ", { locale: pt })
             }
         });
     }
