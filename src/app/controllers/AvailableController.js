@@ -1,6 +1,6 @@
 import User from '../models/User';
 import Appointment from '../models/Appointment';
-import { startOfDay, parseISO, endOfDay } from 'date-fns';
+import { startOfDay, parseISO, endOfDay, setHours, setMinutes, setSeconds, format, isAfter } from 'date-fns';
 import { Op } from 'sequelize';
 
 
@@ -8,36 +8,57 @@ class AvailableController {
 
     async index(req, res) {
 
-
-        const checkUserProvider = await User.findOne({
-            where: {
-                id: req.userId,
-                provider: true
-            }
-        });
-
-        if (!checkUserProvider) {
-            return res.status(401).json({ error: 'User is not a provider.' });
+        const { date } = req.query;
+        if (!date) {
+            return re.status(400).json({ error: 'Invalid date' });
         }
 
-        const { date } = req.query;
+        const searchDate = Number(date);
 
-        const parseDate = parseISO(date);
 
         const appointments = await Appointment.findAll({
             where: {
-                provider_id: req.userId,
+                provider_id: req.params.providerId,
                 canceled_at: null,
                 date: {
-                    [Op.between]: [startOfDay(parseDate), endOfDay(parseDate)]
+                    [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)]
                 }
 
             },
-            order: ['date']
-
         });
 
-        return res.status(200).json(appointments);
+
+        const schedule = [
+            '08:00',
+            '09:00',
+            '10:00',
+            '11:00',
+            '12:00',
+            '13:00',
+            '14:00',
+            '15:00',
+            '16:00',
+            '17:00',
+            '18:00',
+            '19:00',
+        ];
+
+        const available = schedule.map(time => {
+            const [hour, minute] = time.split(':');
+            const value = setSeconds(
+                setMinutes(setHours(searchDate, hour), minute),
+                0
+            );
+
+            return {
+                time,
+                value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+                available: isAfter(value, new Date()) && !appointments.find(a =>
+                    format(a.date, 'HH:mm') == time
+                ),
+            };
+        });
+        return res.status(200).json(available);
     }
 }
 
