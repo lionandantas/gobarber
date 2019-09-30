@@ -1,5 +1,5 @@
 export default {
-    secret: '743ec03235ec7e91c16ad854be358c25',
+    secret: process.env.APP_SECRET,
     expiresIn: '7d'
 }
 //net start redis
