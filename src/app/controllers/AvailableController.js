@@ -1,6 +1,6 @@
 import User from '../models/User';
 import Appointment from '../models/Appointment';
-import { startOfDay, parseISO, endOfDay, setHours, setMinutes, setSeconds, format, isAfter } from 'date-fns';
+import { startOfDay, endOfDay, setHours, setMinutes, setSeconds, format, isAfter } from 'date-fns';
 import { Op } from 'sequelize';
 
 
